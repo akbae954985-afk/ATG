@@ -6,6 +6,7 @@ Official code for our paper "**An Autoregressive Text-to-Graph Framework for Joi
 - ✅ Removed dependency on AllenNLP - now uses pure PyTorch implementations
 - ✅ Updated model paths to use Hugging Face Hub model names for better accessibility
 - ✅ Added Persian language support using PartAI/TookaBERT-Base model
+- ✅ Enhanced evaluation logging with console output and detailed metrics
 
 ## Usage
 
