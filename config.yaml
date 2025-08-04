@@ -5,7 +5,7 @@
 data_file: "dataset/scierc.pkl"
 
 # Model Configuration
-model_name: "allenai/scibert_scivocab_cased"  # Available: spanbert, bert, roberta, scibert, arabert, bertlarge, scibert_cased, albert, spanbertlarge, t5-s, t5-m, t5-l, deberta
+model_name: "PartAI/TookaBERT-Base"  # Persian language model - Available: spanbert, bert, roberta, scibert, arabert, bertlarge, scibert_cased, albert, spanbertlarge, t5-s, t5-m, t5-l, deberta, tookabert
 max_width: 14
 num_prompts: 5
 hidden_transformer: 512
@@ -49,3 +49,4 @@ model_paths:
   t5-m: "google-t5/t5-base"
   t5-l: "google-t5/t5-large"
   deberta: "microsoft/deberta-v3-large"
+  tookabert: "PartAI/TookaBERT-Base"

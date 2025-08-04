@@ -133,7 +133,8 @@ MODELS = {
     "t5-s": "google-t5/t5-small",
     "t5-m": "google-t5/t5-base",
     "t5-l": "google-t5/t5-large",
-    "deberta": "microsoft/deberta-v3-large"
+    "deberta": "microsoft/deberta-v3-large",
+    "tookabert": "PartAI/TookaBERT-Base"
 }
 
 
@@ -165,7 +166,7 @@ def create_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', type=str, help='Path to YAML configuration file')
     parser.add_argument('--data_file', type=str, default='dataset/scierc.pkl')
-    parser.add_argument('--model_name', type=str, default='scibert_cased')
+    parser.add_argument('--model_name', type=str, default='tookabert')
     parser.add_argument('--max_width', type=int, default=14)
     parser.add_argument('--num_prompts', type=int, default=5)
     parser.add_argument('--hidden_transformer', type=int, default=512)
