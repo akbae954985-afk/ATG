@@ -5,7 +5,7 @@
 data_file: "dataset/scierc.pkl"
 
 # Model Configuration
-model_name: "scibert_cased"  # Available: spanbert, bert, roberta, scibert, arabert, bertlarge, scibert_cased, albert, spanbertlarge, t5-s, t5-m, t5-l, deberta
+model_name: "allenai/scibert_scivocab_cased"  # Available: spanbert, bert, roberta, scibert, arabert, bertlarge, scibert_cased, albert, spanbertlarge, t5-s, t5-m, t5-l, deberta
 max_width: 14
 num_prompts: 5
 hidden_transformer: 512
@@ -34,18 +34,18 @@ lr_others: 5.0e-4
 save_interval: 1000
 log_dir: null  # Will be required when running training
 
-# Model Paths (customize as needed)
+# Model Paths (Hugging Face Hub model names)
 model_paths:
-  spanbert: "/gpfswork/rech/pds/upa43yu/models/spanbert-base-cased"
-  bert: "/gpfswork/rech/pds/upa43yu/models/bert-base-cased"
-  roberta: "/gpfswork/rech/pds/upa43yu/models/roberta-base"
-  scibert: "/gpfswork/rech/pds/upa43yu/models/scibert-base"
-  arabert: "/gpfswork/rech/pds/upa43yu/models/bert-base-arabert"
-  bertlarge: "/gpfsdswork/dataset/HuggingFace_Models/bert-large-cased"
-  scibert_cased: "/gpfswork/rech/pds/upa43yu/models/scibert_cased"
-  albert: "/gpfswork/rech/pds/upa43yu/models/albert-xxlarge-v2"
-  spanbertlarge: "/gpfswork/rech/pds/upa43yu/models/spanbert-large-cased"
-  t5-s: "/gpfsdswork/dataset/HuggingFace_Models/t5-small"
-  t5-m: "/gpfsdswork/dataset/HuggingFace_Models/t5-base"
-  t5-l: "/gpfsdswork/dataset/HuggingFace_Models/t5-large"
-  deberta: "/gpfswork/rech/pds/upa43yu/models/deberta-v3-large"
+  spanbert: "SpanBERT/spanbert-base-cased"
+  bert: "google-bert/bert-base-cased"
+  roberta: "FacebookAI/roberta-base"
+  scibert: "allenai/scibert_scivocab_uncased"
+  arabert: "aubmindlab/bert-base-arabert"
+  bertlarge: "google-bert/bert-large-cased"
+  scibert_cased: "allenai/scibert_scivocab_cased"
+  albert: "albert/albert-xxlarge-v2"
+  spanbertlarge: "SpanBERT/spanbert-large-cased"
+  t5-s: "google-t5/t5-small"
+  t5-m: "google-t5/t5-base"
+  t5-l: "google-t5/t5-large"
+  deberta: "microsoft/deberta-v3-large"

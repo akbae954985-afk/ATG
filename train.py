@@ -121,19 +121,19 @@ def train(model, optimizer, train_data, eval_data,
 
 
 MODELS = {
-    "spanbert": f"/gpfswork/rech/pds/upa43yu/models/spanbert-base-cased",
-    "bert": f"/gpfswork/rech/pds/upa43yu/models/bert-base-cased",
-    "roberta": f"/gpfswork/rech/pds/upa43yu/models/roberta-base",
-    "scibert": f"/gpfswork/rech/pds/upa43yu/models/scibert-base",
-    "arabert": f"/gpfswork/rech/pds/upa43yu/models/bert-base-arabert",
-    "bertlarge": f"/gpfsdswork/dataset/HuggingFace_Models/bert-large-cased",
-    "scibert_cased": f"/gpfswork/rech/pds/upa43yu/models/scibert_cased",
-    "albert": f"/gpfswork/rech/pds/upa43yu/models/albert-xxlarge-v2",
-    "spanbertlarge": f"/gpfswork/rech/pds/upa43yu/models/spanbert-large-cased",
-    "t5-s": "/gpfsdswork/dataset/HuggingFace_Models/t5-small",
-    "t5-m": "/gpfsdswork/dataset/HuggingFace_Models/t5-base",
-    "t5-l": "/gpfsdswork/dataset/HuggingFace_Models/t5-large",
-    "deberta": "/gpfswork/rech/pds/upa43yu/models/deberta-v3-large"
+    "spanbert": "SpanBERT/spanbert-base-cased",
+    "bert": "google-bert/bert-base-cased",
+    "roberta": "FacebookAI/roberta-base",
+    "scibert": "allenai/scibert_scivocab_uncased",
+    "arabert": "aubmindlab/bert-base-arabert",
+    "bertlarge": "google-bert/bert-large-cased",
+    "scibert_cased": "allenai/scibert_scivocab_cased",
+    "albert": "albert/albert-xxlarge-v2",
+    "spanbertlarge": "SpanBERT/spanbert-large-cased",
+    "t5-s": "google-t5/t5-small",
+    "t5-m": "google-t5/t5-base",
+    "t5-l": "google-t5/t5-large",
+    "deberta": "microsoft/deberta-v3-large"
 }
 
 

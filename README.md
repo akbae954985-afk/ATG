@@ -4,6 +4,7 @@ Official code for our paper "**An Autoregressive Text-to-Graph Framework for Joi
 ## Recent Updates
 - ✅ Added train config file (`config.yaml`) with comprehensive configuration options
 - ✅ Removed dependency on AllenNLP - now uses pure PyTorch implementations
+- ✅ Updated model paths to use Hugging Face Hub model names for better accessibility
 
 ## Usage
 
