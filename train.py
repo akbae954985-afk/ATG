@@ -250,9 +250,6 @@ if __name__ == '__main__':
         device = torch.device("cuda")
         print("Running on the GPU")
     else:
-        import flair
-
-        flair.device = torch.device('cpu')
         device = torch.device("cpu")
         print("Running on the CPU")
 

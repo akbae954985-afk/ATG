@@ -7,6 +7,7 @@ Official code for our paper "**An Autoregressive Text-to-Graph Framework for Joi
 - ✅ Updated model paths to use Hugging Face Hub model names for better accessibility
 - ✅ Added Persian language support using PartAI/TookaBERT-Base model
 - ✅ Enhanced evaluation logging with console output and detailed metrics
+- ✅ Replaced Flair dependency with direct Transformers implementation for better compatibility
 
 ## Usage
 
@@ -120,14 +121,15 @@ pip install -r requirements.txt
   - `create_dataloader()`: Create PyTorch DataLoader with custom collation
   - `collate_fn()`: Custom batch collation function
 
-##### `layers/token_embedding.py` (Token Representations)
-- **Purpose**: Token embedding layer using transformers (BERT, etc.)
+##### `layers/token_embedding_robust.py` (Token Representations)
+- **Purpose**: Token embedding layer using transformers directly (BERT, etc.)
 - **Key Classes**:
-  - `TokenRep`: Wrapper for transformer word embeddings with query support
+  - `TokenRep`: Direct transformer implementation with query support
 - **Key Features**:
-  - Integrates with Flair's TransformerWordEmbeddings
+  - Uses Hugging Face Transformers directly (no Flair dependency)
   - Supports learnable query embeddings
   - Handles subtoken pooling strategies
+  - Better version compatibility and stability
 
 ##### `layers/span_embedding.py` (Span Representations)
 - **Purpose**: Various span representation methods
@@ -187,8 +189,8 @@ pip install -r requirements.txt
 - **Purpose**: Python package dependencies
 - **Key Packages**:
   - `torch`: Deep learning framework
-  - `transformers`: Hugging Face transformers
-  - `flair`: NLP library for embeddings
+  - `transformers`: Hugging Face transformers (direct implementation)
+  - `tokenizers`: Fast tokenization
   - `PyYAML`: Configuration file support
   - `tqdm`: Progress bars
   - `numpy`: Numerical operations
