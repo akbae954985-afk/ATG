@@ -3,4 +3,3 @@ transformers>=4.0.0
 tqdm
 PyYAML
 numpy
-pickle5
