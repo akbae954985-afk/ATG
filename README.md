@@ -1,9 +1,27 @@
 # ATG
 Official code for our paper "**An Autoregressive Text-to-Graph Framework for Joint Entity and Relation Extraction**" which will be published at AAAI 2024.
 
-TO DO:
-- Add train config file
-- Remove dependency on AllenNLP
+## Recent Updates
+- ✅ Added train config file (`config.yaml`) with comprehensive configuration options
+- ✅ Removed dependency on AllenNLP - now uses pure PyTorch implementations
+
+## Usage
+
+### Training with Configuration File
+```bash
+python train.py --config config.yaml --log_dir ./logs
+```
+
+### Training with Command Line Arguments (Legacy)
+```bash
+python train.py --data_file dataset/scierc.pkl --model_name scibert_cased --log_dir ./logs
+```
+
+## Dependencies
+Install the required dependencies:
+```bash
+pip install -r requirements.txt
+```
 
 
 ## Citation

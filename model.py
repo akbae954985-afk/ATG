@@ -2,10 +2,10 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from allennlp.modules.seq2seq_encoders import LstmSeq2SeqEncoder
 from torch.nn.utils.rnn import pad_sequence
 
 from layers.base import BaseJointRE
+from layers.lstm_encoder import LstmSeq2SeqEncoder
 from layers.span_embedding import SpanRepLayer
 from layers.token_embedding import TokenRep
 from trans_enc import TransDec

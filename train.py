@@ -2,6 +2,7 @@ import argparse
 import logging
 import os
 import pickle
+import yaml
 
 import torch
 from tqdm import tqdm
@@ -136,9 +137,33 @@ MODELS = {
 }
 
 
+def load_config(config_path):
+    """Load configuration from YAML file."""
+    with open(config_path, 'r') as f:
+        config = yaml.safe_load(f)
+    return config
+
+
+def config_to_args(config):
+    """Convert config dictionary to argparse.Namespace."""
+    # Handle model paths
+    if 'model_paths' in config and config['model_name'] in config['model_paths']:
+        model_path = config['model_paths'][config['model_name']]
+    else:
+        # Fallback to old MODELS dict if not in config
+        model_path = MODELS.get(config['model_name'], config['model_name'])
+    
+    # Create namespace with all config values
+    args_dict = {k: v for k, v in config.items() if k != 'model_paths'}
+    args_dict['model_path'] = model_path
+    
+    return argparse.Namespace(**args_dict)
+
+
 # #training_arguments
 def create_parser():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--config', type=str, help='Path to YAML configuration file')
     parser.add_argument('--data_file', type=str, default='dataset/scierc.pkl')
     parser.add_argument('--model_name', type=str, default='scibert_cased')
     parser.add_argument('--max_width', type=int, default=14)
@@ -168,6 +193,14 @@ def create_parser():
 if __name__ == '__main__':
     parser = create_parser()
     args = parser.parse_args()
+    
+    # Load configuration from file if provided
+    if args.config:
+        config = load_config(args.config)
+        args = config_to_args(config)
+        model_path = args.model_path
+    else:
+        model_path = MODELS[args.model_name]
 
     if torch.cuda.is_available():
         device = torch.device("cuda")
@@ -189,7 +222,7 @@ if __name__ == '__main__':
     rel_to_id["stop_entity"] = len(rel_to_id)  # add a new relation for stop entity
 
     model = IeGenerator(
-        class_to_id, rel_to_id, model_name=MODELS[args.model_name], max_width=args.max_width,
+        class_to_id, rel_to_id, model_name=model_path, max_width=args.max_width,
         num_prompts=args.num_prompts, hidden_transformer=args.hidden_transformer,
         num_transformer_layers=args.num_transformer_layers, attention_heads=args.attention_heads,
         span_mode=args.span_mode, use_pos_code=args.use_pos_code, p_drop=args.p_drop, cross_attn=args.cross_attn
