@@ -38,6 +38,7 @@ class TokenRep(nn.Module):
             embedding_dim = self.transformer_model.get_input_embeddings().embedding_dim
             self.query_embedding = nn.Parameter(torch.randn(num_queries, embedding_dim))
             nn.init.uniform_(self.query_embedding, -0.01, 0.01)
+# In token_embedding_robust.py, modify the forward method of TokenRep
 
     def forward(self, sentences, seq_lengths):
         """
@@ -55,7 +56,7 @@ class TokenRep(nn.Module):
             text_sentences = [" ".join(sent) for sent in sentences]
         else:
             text_sentences = sentences
-
+    
         # Tokenize all sentences
         tokenized = self.tokenizer(
             text_sentences,
@@ -70,7 +71,7 @@ class TokenRep(nn.Module):
         attention_mask = tokenized['attention_mask'].to(next(self.parameters()).device)
         
         batch_size, max_seq_len = input_ids.shape
-
+    
         # Handle query embeddings
         if self.query_embedding is not None:
             num_queries = self.query_embedding.size(0)
@@ -120,20 +121,20 @@ class TokenRep(nn.Module):
             token_embeddings = hidden_states[-1]  # Last layer
             query_embeddings = torch.zeros(batch_size, 0, self.hidden_size, device=input_ids.device)
             token_attention_mask = attention_mask
-
+    
         # Handle subtoken pooling (simplified to first subtoken)
         if self.subtoken_pooling == "first":
             # For now, use the token embeddings as is
             # In a more sophisticated implementation, you'd map back to original tokens
             pass
-
+    
         # Create mask tensor matching the expected format
         # Limit to the actual sequence lengths
         mask = torch.zeros(batch_size, max_seq_len, dtype=torch.bool, device=input_ids.device)
         for i, length in enumerate(seq_lengths):
             actual_length = min(length.item(), max_seq_len)
             mask[i, :actual_length] = True
-
+    
         # Ensure embeddings match the expected sequence length
         if token_embeddings.size(1) != max_seq_len:
             if token_embeddings.size(1) > max_seq_len:
@@ -143,27 +144,16 @@ class TokenRep(nn.Module):
                 padding_size = max_seq_len - token_embeddings.size(1)
                 padding = torch.zeros(batch_size, padding_size, self.hidden_size, device=token_embeddings.device)
                 token_embeddings = torch.cat([token_embeddings, padding], dim=1)
-
+    
+        # Create cache with memory and memory_pad_mask
+        cache = {
+            "memory": token_embeddings,  # Use token embeddings as memory
+            "memory_pad_mask": ~mask  # Invert mask for padding mask (True for padding)
+        }
+    
         return {
             'queries': query_embeddings,
             'embeddings': token_embeddings,
             'mask': mask,
-            'cache': None  # Not used in this implementation
+            'cache': cache
         }
-
-    def get_embeddings(self, sentences, queries=None):
-        """
-        Legacy method for compatibility.
-        """
-        # Convert to the expected format
-        if isinstance(sentences[0], str):
-            # If sentences are strings, tokenize them
-            sentences = [sent.split() for sent in sentences]
-        
-        seq_lengths = torch.tensor([len(sent) for sent in sentences])
-        result = self.forward(sentences, seq_lengths)
-        
-        if queries is not None:
-            return result['embeddings'], result['queries'], result['cache']
-        else:
-            return result['embeddings'], None, result['cache']
